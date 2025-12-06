@@ -16,8 +16,9 @@ import {
   ClipboardPlus,
 } from "lucide-react";
 import { Fascinate } from "next/font/google";
+import { RingLoader } from "react-spinners";
 
-export default function MainForm({onGenerate, isLoading}) {
+export default function MainForm({ onGenerate, status }) {
   const [plan, setPlan] = useState(""); // store AI-generated plan
 
   const [formData, setFormData] = useState({
@@ -210,11 +211,16 @@ export default function MainForm({onGenerate, isLoading}) {
 
         <Button
           type="submit"
-          disabled={isLoading}
+          disabled={status === "loading"}
           variant="secondary"
           className="w-full bg-main text-[#e6e6e6] mt-2 font-semibold p-2 rounded-md hover:opacity-90 transition-all disabled:opacity-50"
         >
-          {isLoading ? "Generating Plan..." : "Submit"}
+          {status === "loading" ? (
+            <div className="flex items-center gap-3">
+              <RingLoader size={20} color="white"/>
+              Generating Plan...
+            </div>
+          ) : "Submit"}
         </Button>
       </form>
 

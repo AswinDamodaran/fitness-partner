@@ -6,11 +6,11 @@ import { useState } from "react";
 export default function Home() {
 
   const [plan, setPlan] = useState("");    
-  const [isLoading, setIsLoading] = useState(false);
+  const [status, setStatus] = useState("idle");
 
   const handleGeneratePlan = async (formData) => {
     try {
-      setIsLoading(true);
+      setStatus("loading");
       setPlan("");
 
       const res = await fetch("/api/generate-plan", {
@@ -21,11 +21,12 @@ export default function Home() {
 
       const data = await res.json();
       setPlan(data.result || "No plan generated.");
+      setStatus("done");
     } catch (err) {
       console.error(err);
       setPlan("Something went wrong while generating the plan.");
     } finally {
-      setIsLoading(false);
+      setStatus("idle");
     }
   };
 
@@ -33,8 +34,8 @@ export default function Home() {
   return (
    <div className="bg-lightBg dark:bg-darkBg p-5 mx-auto flex flex-col md:flex-row items-stretch justify-center min-h-[90vh] gap-6">
 
-    <MainForm onGenerate={handleGeneratePlan} isLoading={isLoading}/>
-    <PlanGenerator plan={plan} isLoading={isLoading}/>
+    <MainForm onGenerate={handleGeneratePlan} status={status}/>
+    <PlanGenerator plan={plan} status={status}/>
    </div>
   );
 }
