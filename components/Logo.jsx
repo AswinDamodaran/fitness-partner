@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export default function Logo() {
     return (
-        <Link href="#" className="p-2 bg-darkBg rounded-md">
+        <Link href="/" className="p-2 bg-darkBg rounded-md">
           <Dumbbell color="#fff" />
         </Link>
     )

@@ -173,10 +173,9 @@ it should strictly be in the jason format as given above inside {}
 
     let output = response.text;
     
-    // Clean the response
+
     output = output.replace(/```json\n?/g, "").replace(/```\n?/g, "").trim();
     
-    // Parse JSON
     const json = JSON.parse(output);
 
     return NextResponse.json(json);
